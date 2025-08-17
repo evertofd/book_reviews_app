@@ -1,0 +1,264 @@
+@use '../variables' as *;
+@use 'sass:color';
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: $success-color;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  color: white;
+
+  // Responsive padding
+  @media (max-width: 768px) {
+    padding: 0.75rem 1rem;
+    margin-bottom: $spacing-lg;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.5rem 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  flex: 1;
+  min-width: 0;
+
+  @media (max-width: 768px) {
+    gap: $spacing-md;
+  }
+
+  @media (max-width: 480px) {
+    display: block;
+    gap: $spacing-sm;
+    width: 100%;
+    order: 1;
+  }
+}
+
+.header h1 {
+  text-align: center;
+  margin: 0;
+  color: $text-color;
+  font-size: clamp(1.25rem, 4vw, 1.875rem);
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: $gray-50;
+
+  @media (max-width: 480px) {
+    font-size: 1.25rem;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    gap: $spacing-sm;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    justify-content: space-between;
+    order: 2;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  span {
+    color: $gray-50;
+    font-weight: 500;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+
+    @media (max-width: 768px) {
+      max-width: 100px;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 480px) {
+      max-width: none;
+      flex: 1;
+    }
+  }
+}
+
+// Estilos base para todos los botones
+%btn-base {
+  padding: $spacing-sm $spacing-md;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 768px) {
+    padding: $spacing-xs $spacing-sm;
+    font-size: 0.8rem;
+    min-height: 32px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+.back-btn {
+  @extend %btn-base;
+  background: $gray-100;
+  color: $gray-700;
+
+  &:hover {
+    background: $gray-200;
+    color: $gray-800;
+  }
+
+  // Ocultar texto en móviles muy pequeños
+  @media (max-width: 380px) {
+    padding: $spacing-xs;
+
+    &::before {
+      content: '←';
+    }
+
+    span {
+      display: none;
+    }
+  }
+}
+
+.nav-btn {
+  @extend %btn-base;
+  background: linear-gradient(135deg, $gray-400, color.scale($gray-400, $lightness: 10%));
+  color: white;
+  border: 1px solid transparent;
+
+  &:hover {
+    background: linear-gradient(135deg, color.scale($gray-400, $lightness: -10%), $gray-400);
+    border-color: color.scale($gray-400, $lightness: -20%);
+  }
+
+  @media (max-width: 480px) {
+    flex: 1;
+    max-width: 140px;
+  }
+}
+
+.logout-btn {
+  @extend %btn-base;
+  background: linear-gradient(135deg, $gray-700, color.scale($gray-700, $lightness: 10%));
+  color: white;
+  border: 1px solid transparent;
+
+  &:hover {
+    background: linear-gradient(135deg, color.scale($gray-700, $lightness: -10%), $gray-700);
+    border-color: color.scale($gray-700, $lightness: -20%);
+  }
+
+  @media (max-width: 480px) {
+    flex-shrink: 0;
+    min-width: 80px;
+  }
+}
+
+// Animaciones suaves para cambios de estado
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  animation: fadeIn 0.3s ease-out;
+}
+
+// Mejoras de accesibilidad
+@media (prefers-reduced-motion: reduce) {
+
+  .back-btn,
+  .nav-btn,
+  .logout-btn {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .header {
+    background: rgba(17, 24, 39, 0.95);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+
+    h1 {
+      color: #f9fafb;
+      text-align: center;
+    }
+
+    .user-info span {
+      color: #d1d5db;
+    }
+
+    .back-btn {
+      background: #374151;
+      color: #d1d5db;
+
+      &:hover {
+        background: #4b5563;
+        color: #f9fafb;
+      }
+    }
+  }
+}

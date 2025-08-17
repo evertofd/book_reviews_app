@@ -1,0 +1,318 @@
+@use '../variables' as *;
+@use 'sass:color';
+
+// Toast/Alert notifications
+.toast {
+  position: fixed;
+  top: $spacing-lg;
+  right: $spacing-lg;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-md $spacing-lg;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-lg;
+  z-index: 1000;
+  min-width: 300px;
+  animation: slideInRight 0.3s ease;
+  
+  .toast-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+  
+  .toast-message {
+    flex: 1;
+    font-weight: 500;
+  }
+  
+  .toast-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.toast-success {
+  background: $success-color;
+  border: 1px solid rgba($success-color, 0.3);
+  color: $gray-50;
+  
+  .toast-close {
+    color: $success-color;
+  }
+}
+
+.toast-error {
+  background: $error-color;
+  border: 1px solid rgba($error-color, 0.3);
+  color: $gray-50;
+  
+  .toast-close {
+    color: $error-color;
+  }
+}
+
+// Container principal
+.book-detail-container {
+  min-height: calc(100vh - 100px);
+  padding: $spacing-xl;
+  background: $bg-color;
+  
+  @media (max-width: $mobile) {
+    padding: $spacing-md;
+  }
+}
+
+// Detalle del libro
+.book-detail {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.book-info-section {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: $spacing-2xl;
+  margin-bottom: $spacing-2xl;
+  
+  @media (max-width: $mobile) {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+    text-align: center;
+  }
+}
+
+.book-cover-container {
+  text-align: center;
+}
+
+.book-cover-large {
+  width: 100%;
+  max-width: 300px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-lg;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.book-details {
+  .book-title {
+    margin: 0 0 $spacing-lg 0;
+    color: $text-color;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.3;
+    
+    @media (max-width: $mobile) {
+      font-size: 1.5rem;
+    }
+  }
+  
+  .book-author, .book-year, .book-isbn {
+    margin: $spacing-sm 0;
+    color: $text-muted;
+    font-size: 1.1rem;
+  }
+  
+  .book-author {
+    font-weight: 600;
+    color: $gray-700;
+  }
+}
+
+// Sección de review
+.review-section {
+  background: $gray-50;
+  padding: $spacing-2xl;
+  border-radius: $radius-lg;
+  border: 1px solid $gray-200;
+}
+
+.review-title {
+  margin: 0 0 $spacing-xl 0;
+  color: $text-color;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.review-form {
+  .form-group {
+    margin-bottom: $spacing-xl;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: $spacing-sm;
+    font-weight: 600;
+    color: $text-color;
+    font-size: 1rem;
+  }
+}
+
+.review-textarea {
+  width: 100%;
+  padding: $spacing-md;
+  border: 2px solid $gray-200;
+  border-radius: $radius-md;
+  font-family: inherit;
+  font-size: 1rem;
+  color: $text-color;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+  
+  &::placeholder {
+    color: $gray-400;
+  }
+}
+
+.char-counter {
+  text-align: right;
+  font-size: 0.9rem;
+  color: $text-muted;
+  margin-top: $spacing-xs;
+}
+
+// Sistema de calificación
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.star-btn {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: $gray-300;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover, &.active {
+    color: $warning-color;
+    transform: scale(1.1);
+  }
+}
+
+.rating-text {
+  margin-left: $spacing-md;
+  font-weight: 600;
+  color: $text-color;
+  font-size: 1.1rem;
+}
+
+// Botón guardar
+.save-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  padding: $spacing-md $spacing-xl;
+  background: $success-color;
+  color: white;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  min-width: 200px;
+  
+  &:hover:not(:disabled) {
+    background: color.scale($success-color, $lightness: -10%);
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+  
+  &:disabled {
+    background: $gray-400;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.button-loader {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(white, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+// Estado sin libro
+.no-book {
+  text-align: center;
+  padding: $spacing-2xl;
+  margin: $spacing-2xl 0;
+  
+  .no-book-icon {
+    font-size: 4rem;
+    margin-bottom: $spacing-lg;
+    opacity: 0.6;
+  }
+  
+  h3 {
+    margin: 0 0 $spacing-sm 0;
+    color: $text-color;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  p {
+    margin: 0 0 $spacing-lg 0;
+    color: $text-muted;
+    font-size: 1rem;
+  }
+}
+
+.back-btn {
+  padding: $spacing-sm $spacing-lg;
+  background: $gray-600;
+  color: white;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: color.scale($gray-600, $lightness: -10%);
+    transform: translateY(-1px);
+  }
+}
+
+// Animaciones
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

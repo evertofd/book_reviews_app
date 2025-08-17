@@ -1,0 +1,99 @@
+@use '../variables' as *;
+
+.search-history {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.history-header {
+  margin-bottom: $spacing-xl;
+}
+
+.history-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  margin: 0 0 $spacing-xs 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: $text-color;
+}
+
+.history-icon {
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.history-subtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: $text-muted;
+  font-weight: 400;
+}
+
+.history-items {
+  display: flex;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-md;
+  background: $gray-50;
+  border: 2px solid $gray-100;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: $gray-700;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba($primary-color, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  &:hover {
+    background: $bg-color;
+    border-color: $primary-color;
+    color: $primary-color;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+    
+    &::before {
+      left: 100%;
+    }
+    
+    .history-arrow {
+      transform: translateX(3px);
+    }
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.history-text {
+  font-weight: 500;
+}
+
+.history-arrow {
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+  opacity: 0.7;
+}

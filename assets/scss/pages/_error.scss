@@ -1,0 +1,161 @@
+@use '../variables' as *;
+@use 'sass:color';
+
+.error-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $gray-50 0%, $gray-100 100%);
+  padding: $spacing-xl;
+  
+  @media (max-width: $mobile) {
+    padding: $spacing-md;
+  }
+}
+
+.error-content {
+  text-align: center;
+  max-width: 600px;
+  background: $bg-color;
+  padding: $spacing-2xl;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-lg;
+  border: 1px solid $gray-200;
+  
+  @media (max-width: $mobile) {
+    padding: $spacing-xl;
+  }
+}
+
+.error-icon {
+  font-size: 5rem;
+  margin-bottom: $spacing-lg;
+  opacity: 0.8;
+  
+  @media (max-width: $mobile) {
+    font-size: 4rem;
+  }
+}
+
+.error-code {
+  font-size: 4rem;
+  font-weight: 800;
+  color: $primary-color;
+  margin: 0 0 $spacing-md 0;
+  letter-spacing: -0.02em;
+  
+  @media (max-width: $mobile) {
+    font-size: 3rem;
+  }
+}
+
+.error-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: $text-color;
+  margin: 0 0 $spacing-lg 0;
+  
+  @media (max-width: $mobile) {
+    font-size: 1.5rem;
+  }
+}
+
+.error-description {
+  font-size: 1.1rem;
+  color: $text-muted;
+  line-height: 1.6;
+  margin: 0 0 $spacing-2xl 0;
+  
+  @media (max-width: $mobile) {
+    font-size: 1rem;
+  }
+}
+
+.error-actions {
+  display: flex;
+  gap: $spacing-md;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: $spacing-xl;
+}
+
+.home-btn, .back-btn, .refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-md $spacing-lg;
+  border: none;
+  border-radius: $radius-md;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+  
+  @media (max-width: $mobile) {
+    padding: $spacing-sm $spacing-md;
+    font-size: 0.9rem;
+  }
+}
+
+.home-btn {
+  background: $primary-color;
+  color: white;
+  
+  &:hover {
+    background: color.scale($primary-color, $lightness: -10%);
+  }
+}
+
+.back-btn {
+  background: $gray-100;
+  color: $text-color;
+  
+  &:hover {
+    background: $gray-200;
+  }
+}
+
+.refresh-btn {
+  background: $warning-color;
+  color: white;
+  
+  &:hover {
+    background: color.scale($warning-color, $lightness: -10%);
+  }
+}
+
+.error-details {
+  text-align: left;
+  margin-top: $spacing-xl;
+  padding: $spacing-md;
+  background: $gray-50;
+  border-radius: $radius-md;
+  border: 1px solid $gray-200;
+  
+  summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: $text-color;
+    margin-bottom: $spacing-sm;
+    
+    &:hover {
+      color: $primary-color;
+    }
+  }
+  
+  pre {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: $text-muted;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    margin: $spacing-xs 0;
+  }
+}

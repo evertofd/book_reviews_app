@@ -1,0 +1,65 @@
+@use '../variables' as *;
+@use 'sass:color';
+
+.search-section-input{
+    width: 100%;
+    text-align: center;
+}
+.search-input {
+  flex: 1;
+  padding: 0.55rem 0.9rem; 
+  border: 1px solid $gray-300;
+  width: 50%;
+  border-radius: $radius-md;
+  font-size: 0.95rem;
+  background: $bg-color;
+  color: $text-color;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $gray-500;
+    box-shadow: 0 0 0 3px rgba($gray-500, 0.15);
+  }
+
+  &::placeholder {
+    color: $gray-400;
+    font-style: italic;
+  }
+
+  &:disabled {
+    background: $gray-50;
+    color: $text-muted;
+    cursor: not-allowed;
+  }
+}
+
+.search-button {
+  padding: 0.55rem 1.2rem; 
+  background: $gray-500;
+  color: white;
+  border: none;
+  border-radius: $radius-md;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: $gray-600;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba($gray-600, 0.2);
+  }
+
+  &:active:not(:disabled) {
+    background: $gray-400;
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    background: $gray-400;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}

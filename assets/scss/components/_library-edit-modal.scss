@@ -1,0 +1,210 @@
+@use '../variables' as *;
+@use 'sass:color';
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.edit-modal {
+  background: $bg-color;
+  border-radius: $radius-lg;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: $shadow-lg;
+  animation: slideIn 0.3s ease;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-xl $spacing-xl $spacing-md $spacing-xl;
+  border-bottom: 1px solid $gray-200;
+  
+  .modal-title {
+    margin: 0;
+    color: $text-color;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.3;
+    flex: 1;
+    margin-right: $spacing-md;
+  }
+  
+  .modal-icon {
+    font-size: 1.5rem;
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+}
+
+.edit-form {
+  .modal-body {
+    padding: $spacing-lg $spacing-xl;
+  }
+  
+  .form-group {
+    margin-bottom: $spacing-lg;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: $spacing-sm;
+    font-weight: 600;
+    color: $text-color;
+    font-size: 1rem;
+  }
+}
+
+.review-textarea {
+  width: 100%;
+  padding: $spacing-md;
+  border: 2px solid $gray-200;
+  border-radius: $radius-md;
+  font-family: inherit;
+  font-size: 1rem;
+  color: $text-color;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+  
+  &::placeholder {
+    color: $gray-400;
+  }
+}
+
+.char-counter {
+  text-align: right;
+  font-size: 0.9rem;
+  color: $text-muted;
+  margin-top: $spacing-xs;
+}
+
+// Sistema de calificación
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.star-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: $gray-300;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover, &.active {
+    color: $warning-color;
+    transform: scale(1.1);
+  }
+}
+
+.rating-text {
+  margin-left: $spacing-sm;
+  font-weight: 600;
+  color: $text-color;
+  font-size: 1.1rem;
+}
+
+// Acciones del modal
+.modal-actions {
+  display: flex;
+  gap: $spacing-sm;
+  justify-content: flex-end;
+  padding: $spacing-md $spacing-xl $spacing-xl $spacing-xl;
+  border-top: 1px solid $gray-200;
+}
+
+.cancel-btn, .save-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-lg;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.cancel-btn {
+  background: $gray-100;
+  color: $text-color;
+  
+  &:hover {
+    background: $gray-200;
+  }
+}
+
+.save-btn {
+  background: $primary-color;
+  color: white;
+  
+  &:hover:not(:disabled) {
+    background: color.scale($primary-color, $lightness: -10%);
+    transform: translateY(-1px);
+  }
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.button-loader {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(white, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+// Animaciones
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,30 @@
+@use 'variables';
+@use 'mixins';
+
+// Importar componentes
+@use 'components/loading-spinner';
+@use 'components/navbar';
+@use 'components/search-history';
+@use 'components/search-box';
+@use 'components/search-results';
+@use 'components/library-filters';
+@use 'components/library-book-card';
+@use 'components/library-delete-modal';
+@use 'components/library-edit-modal';
+
+// Importar páginas
+@use 'pages/login';
+@use 'pages/register';
+@use 'pages/index';
+@use 'pages/book-detail';
+@use 'pages/library';
+@use 'pages/error';
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}

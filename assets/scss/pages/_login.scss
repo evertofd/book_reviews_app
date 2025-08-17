@@ -1,0 +1,249 @@
+@use '../variables' as *;
+@use 'sass:color';
+
+.auth-container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  
+  @media (max-width: $tablet) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Sección de imagen
+.image-section {
+  background: url('/images/auth-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  @media (max-width: $tablet) {
+    display: none;
+  }
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba($gray-700, 0.8), rgba($gray-700, 0.6));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-2xl;
+}
+
+.image-content {
+  text-align: center;
+  color: white;
+  
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 $spacing-lg 0;
+    line-height: 1.2;
+    
+    @media (max-width: $desktop) {
+      font-size: 2rem;
+    }
+  }
+  
+  p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin: 0;
+    font-weight: 400;
+    
+    @media (max-width: $desktop) {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+// Sección del formulario
+.form-section {
+  padding: $spacing-xl;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $bg-color;
+  
+  @media (max-width: $mobile) {
+    padding: $spacing-md;
+    min-height: 100vh;
+  }
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 0;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: $spacing-2xl;
+}
+
+.login-icon {
+  font-size: 3rem;
+  margin-bottom: $spacing-md;
+  display: block;
+}
+
+.login-title {
+  margin: 0 0 $spacing-xs 0;
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: $text-color;
+  letter-spacing: -0.025em;
+}
+
+.login-subtitle {
+  margin: 0;
+  color: $text-muted;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.login-form {
+  margin-bottom: $spacing-xl;
+}
+
+.form-group {
+  margin-bottom: $spacing-lg;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: $spacing-xs;
+  font-weight: 600;
+  color: $text-color;
+  font-size: 0.9rem;
+  letter-spacing: 0.025em;
+}
+
+.form-input {
+  width: 100%;
+  padding: $spacing-md;
+  border: 2px solid $gray-200;
+  border-radius: $radius-lg;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: $bg-color;
+  
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+  
+  &:disabled {
+    background: $gray-50;
+    color: $text-muted;
+    cursor: not-allowed;
+  }
+  
+  &::placeholder {
+    color: $gray-400;
+  }
+}
+
+.login-button {
+  width: 100%;
+  padding: $spacing-md $spacing-lg;
+  background: $primary-color;
+  color: white;
+  border: none;
+  border-radius: $radius-lg;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  
+  &:hover:not(:disabled) {
+    background: color.scale($primary-color, $lightness: -10%);
+    transform: translateY(-1px);
+    box-shadow: $shadow-md;
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.button-loader {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(white, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-md;
+  background: rgba($error-color, 0.1);
+  border: 1px solid rgba($error-color, 0.2);
+  border-radius: $radius-md;
+  color: $error-color;
+  font-size: 0.9rem;
+  margin-top: $spacing-md;
+}
+
+.error-icon {
+  font-size: 1rem;
+}
+
+.login-footer {
+  text-align: center;
+  border-top: 1px solid $gray-100;
+  padding-top: $spacing-lg;
+}
+
+.register-text {
+  margin: 0;
+  color: $text-muted;
+  font-size: 0.9rem;
+}
+
+.register-link {
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: color.scale($primary-color, $lightness: -15%);
+    text-decoration: underline;
+  }
+}
+
+@keyframes spin {
+  0% { 
+    transform: rotate(0deg); 
+  }
+  100% { 
+    transform: rotate(360deg); 
+  }
+}
