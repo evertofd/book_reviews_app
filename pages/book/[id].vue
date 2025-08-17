@@ -20,12 +20,8 @@
       <div v-if="selectedBook" class="book-detail">
         <div class="book-info-section">
           <div class="book-cover-container">
-            <img
-              :src="selectedBook.coverUrl || defaultBookCover"
-              :alt="selectedBook.title"
-              class="book-cover-large"
-              @error="handleImageError"
-            />
+            <img :src="selectedBook.coverUrl || defaultBookCover" :alt="selectedBook.title" class="book-cover-large"
+              @error="handleImageError" />
           </div>
 
           <div class="book-details">
@@ -48,14 +44,9 @@
             <!-- Campo de review -->
             <div class="form-group">
               <label for="review" class="form-label">Review del libro:</label>
-              <textarea
-                id="review"
-                v-model="reviewForm.review"
-                placeholder="Escribe tu opinión sobre este libro (máximo 500 caracteres)"
-                maxlength="500"
-                rows="6"
-                class="review-textarea"
-              ></textarea>
+              <textarea id="review" v-model="reviewForm.review"
+                placeholder="Escribe tu opinión sobre este libro (máximo 500 caracteres)" maxlength="500" rows="6"
+                class="review-textarea"></textarea>
               <div class="char-counter">
                 {{ reviewForm.review.length }}/500 caracteres
               </div>
@@ -65,14 +56,8 @@
             <div class="form-group">
               <label class="form-label">Calificación (1-5 estrellas):</label>
               <div class="rating-container">
-                <button
-                  v-for="star in 5"
-                  :key="star"
-                  type="button"
-                  @click="setRating(star)"
-                  class="star-btn"
-                  :class="{ active: star <= reviewForm.rating }"
-                >
+                <button v-for="star in 5" :key="star" type="button" @click="setRating(star)" class="star-btn"
+                  :class="{ active: star <= reviewForm.rating }">
                   ★
                 </button>
                 <span class="rating-text">{{ reviewForm.rating }}/5</span>
@@ -80,11 +65,7 @@
             </div>
 
             <!-- Botón guardar -->
-            <button
-              type="submit"
-              :disabled="loading || !reviewForm.rating"
-              class="save-btn"
-            >
+            <button type="submit" :disabled="loading || !reviewForm.rating" class="save-btn">
               <span v-if="loading" class="button-loader"></span>
               {{ loading ? "Guardando..." : "Guardar en Mi Biblioteca" }}
             </button>
@@ -103,6 +84,11 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * @Everto Farias
+ * @description: Configuración que protege la página de detalle requiriendo autenticación
+ * @return: PageMeta - Aplica middleware auth para acceso solo a usuarios logueados
+ */
 definePageMeta({
   middleware: "auth",
 });
@@ -110,6 +96,7 @@ definePageMeta({
 const route = useRoute();
 const authStore = useAuthStore();
 const booksStore = useBooksStore();
+const defaultBookCover = booksStore.defaultBookCover
 
 const authInitialized = computed(() => authStore.initialized);
 const selectedBook = computed(() => booksStore.selectedBook);
@@ -123,14 +110,21 @@ const reviewForm = reactive({
   rating: 0,
 });
 
-// Imagen por defecto
-const defaultBookCover =
-  "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI4MCIgdmlld0JveD0iMCAwIDIwMCAyODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjgwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik04MCA5MEgxMjBWMTIwSDgwVjkwWiIgZmlsbD0iIzlDQTNBRiIvPgo8cGF0aCBkPSJNNzAgMTQwSDE3MFYxNTBINzBWMTQwWiIgZmlsbD0iIzlDQTNBRiIvPgo8cGF0aCBkPSJNODAgMTYwSDE0MFYxNzBIODBWMTYwWiIgZmlsbD0iIzlDQTNBRiIvPgo8L3N2Zz4K";
 
+/**
+ * @Everto Farias
+ * @description: Establece calificación del libro al hacer click en estrellas
+ * @return: void - Actualiza reviewForm.rating con valor seleccionado (1-5)
+ */
 const setRating = (rating: number) => {
   reviewForm.rating = rating;
 };
 
+/**
+ * @Everto Farias
+ * @description: Maneja guardado del libro en biblioteca convirtiendo imagen a base64 
+ * @return: Promise<void> - Procesa imagen, envía datos y redirige a biblioteca tras éxito
+ */
 const handleSave = async () => {
   if (!selectedBook.value || !reviewForm.rating) return;
 
@@ -184,6 +178,12 @@ const handleSave = async () => {
   }
 };
 
+/**
+ * @Everto Farias
+ * @description: Convierte URL de imagen a string base64 usando fetch y FileReader
+ * @return: Promise<string> - Imagen convertida a formato base64 para almacenamiento
+ */
+
 const convertImageToBase64 = async (imageUrl: string): Promise<string> => {
   try {
     const response = await fetch(imageUrl);
@@ -201,6 +201,11 @@ const convertImageToBase64 = async (imageUrl: string): Promise<string> => {
   }
 };
 
+/**
+ * @Everto Farias
+ * @description: Maneja error de carga de imagen estableciendo placeholder por defecto
+ * @return: void - Reemplaza src con defaultBookCover si la imagen falla
+ */
 const handleImageError = (event: any) => {
   if (event.target.src !== defaultBookCover) {
     event.target.src = defaultBookCover;

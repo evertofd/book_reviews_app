@@ -84,7 +84,11 @@ const formData = reactive({
   rating: 0
 })
 
-// Actualizar formulario cuando cambie el libro
+/**
+ * @Everto Farias
+ * @description: Actualiza formulario cuando cambia el libro seleccionado para editar
+ * @return: void - Hidrata formData con valores actuales del libro (immediate: true)
+ */
 watch(() => props.book, (newBook:any) => {
   if (newBook) {
     formData.review = newBook.review || ''
@@ -92,7 +96,11 @@ watch(() => props.book, (newBook:any) => {
   }
 }, { immediate: true })
 
-// Limpiar formulario al cerrar
+/**
+ * @Everto Farias
+ * @description: Limpia formulario cuando se cierra el modal
+ * @return: void - Resetea formData al cerrar modal para evitar data stale
+ */
 watch(() => props.show, (isOpen:boolean) => {
   if (!isOpen) {
     formData.review = ''
@@ -100,6 +108,11 @@ watch(() => props.show, (isOpen:boolean) => {
   }
 })
 
+/**
+ * @Everto Farias
+ * @description: Maneja submit del formulario validando rating requerido y emitiendo datos
+ * @return: void - Valida y emite evento 'save' con EditData al parent
+ */
 const handleSave = () => {
   if (!formData.rating) return
   

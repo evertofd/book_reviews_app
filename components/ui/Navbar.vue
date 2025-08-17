@@ -21,15 +21,21 @@
 const authStore = useAuthStore();
 const route = useRoute();
 
-// Detectar en qué página estamos
+/**
+ * @description: Computada que detecta si la página actual es la biblioteca personal
+*/
 const isLibraryPage = computed(() => route.path === "/library");
 
-// Título dinámico según la página
+/**
+ * @description: Computada que retorna título dinámico según página actual con iconos apropiados
+ */
 const currentTitle = computed(() => {
   return isLibraryPage.value ? "📚 Mi Biblioteca" : "📖 Entre Páginas";
 });
 
-// Saludo dinámico según la página
+/**
+ * @description: Computada que genera saludo personalizado según página y alias del usuario
+ */
 const greeting = computed(() => {
   const name = authStore.user?.alias || "Usuario";
   return isLibraryPage.value ? name : `Hola, ${name}!`;

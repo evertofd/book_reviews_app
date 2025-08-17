@@ -7,10 +7,8 @@
     <div v-else class="library-container">
       <!-- Filtros y búsqueda -->
       <LibraryFilters v-model="filters" />
-
-      <!-- Loading -->
+      <!-- Loading de libros-->
       <UiLoadingSpinner v-if="libraryStore.loading" message="Cargando libros..." />
-
       <!-- Error -->
       <div v-else-if="libraryStore.error" class="error-message">
         <span class="error-icon">⚠️</span>
@@ -35,37 +33,27 @@
 
       <!-- Grid de libros -->
       <div v-else class="books-grid">
-        <LibraryBookCard 
-          v-for="book in filteredBooks" 
-          :key="book._id"
-          :book="book"
-          @edit="editBook"
-          @delete="confirmDelete"
-        />
+        <LibraryBookCard v-for="book in filteredBooks" :key="book._id" :book="book" @edit="editBook"
+          @delete="confirmDelete" />
       </div>
 
       <!-- Modal de confirmación para eliminar -->
-      <LibraryDeleteModal 
-        :show="showDeleteModal"
-        :book="bookToDelete"
-        :loading="deleteLoading"
-        @close="closeDeleteModal"
-        @confirm="deleteBook"
-      />
+      <LibraryDeleteModal :show="showDeleteModal" :book="bookToDelete" :loading="deleteLoading"
+        @close="closeDeleteModal" @confirm="deleteBook" />
 
       <!-- Modal de edición -->
-      <LibraryEditModa 
-        :show="showEditModal"
-        :book="bookToEdit"
-        :loading="editLoading"
-        @close="closeEditModal"
-        @save="saveEdit"
-      />
+      <LibraryEditModa :show="showEditModal" :book="bookToEdit" :loading="editLoading" @close="closeEditModal"
+        @save="saveEdit" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+/**
+ * @Everto Farias
+ * @description: Configuración que protege la página de biblioteca requiriendo autenticación
+ * @return: PageMeta - Aplica middleware auth para acceso solo a usuarios logueados
+ */
 definePageMeta({
   middleware: "auth",
 });
@@ -75,14 +63,12 @@ const libraryStore = useLibraryStore();
 
 const authInitialized = computed(() => authStore.initialized);
 
-// Filtros
 const filters = reactive({
   search: "",
   sortBy: "",
   excludeNoReview: false,
 });
 
-// Estados de modales
 const showDeleteModal = ref(false);
 const showEditModal = ref(false);
 const bookToDelete = ref(null);
@@ -90,7 +76,11 @@ const bookToEdit = ref(null);
 const editLoading = ref(false);
 const deleteLoading = ref(false);
 
-// Cargar biblioteca cuando esté autenticado
+/**
+ * @Everto Farias
+ * @description: Carga biblioteca cuando auth se inicializa y usuario está autenticado
+ * @return: void - Ejecuta loadLibrary al completarse la autenticación
+ */
 watch(
   authInitialized,
   async (isInitialized: any) => {
@@ -101,10 +91,13 @@ watch(
   { immediate: true }
 );
 
-// Los libros ya vienen filtrados del servidor
 const filteredBooks = computed(() => libraryStore.books);
 
-// Aplicar filtros llamando a la API con parámetros
+/**
+ * @Everto Farias
+ * @description: Aplica filtros actuales llamando a la API con parámetros de búsqueda y ordenamiento
+ * @return: Promise<void> - Recarga biblioteca desde servidor con filtros aplicados
+ */
 const applyFilters = async () => {
   const filterParams: any = {};
 
@@ -123,7 +116,11 @@ const applyFilters = async () => {
   await libraryStore.loadLibrary(filterParams);
 };
 
-// Aplicar filtros cuando cambien automáticamente
+/**
+ * @Everto Farias
+ * @description: Aplica filtros automáticamente cuando cambian los valores
+ * @return: void - Ejecuta applyFilters en cada cambio de filtro
+ */
 watch(
   [() => filters.search, () => filters.sortBy, () => filters.excludeNoReview],
   async () => {
@@ -131,11 +128,16 @@ watch(
   }
 );
 
-// Funciones de edición
+/**
+ * @Everto Farias
+ * @description: Abrir modal de edición y guardar cambios de review y rating
+ * @return: void | Promise<void> - Maneja flujo completo de edición con loading states
+ */
 const editBook = (book: any) => {
   bookToEdit.value = book;
   showEditModal.value = true;
 };
+
 
 const saveEdit = async (editData: { review: string; rating: number }) => {
   if (!bookToEdit.value) return;
@@ -155,8 +157,12 @@ const closeEditModal = () => {
   showEditModal.value = false;
   bookToEdit.value = null;
 };
+/**
+ * @Everto Farias
+ * @description: Confirmar eliminación y ejecutar borrado con confirmación previa
+ * @return: void | Promise<void> - Maneja eliminación segura con modal de confirmación
+ */
 
-// Funciones de eliminación
 const confirmDelete = (book: any) => {
   bookToDelete.value = book;
   showDeleteModal.value = true;
@@ -181,7 +187,6 @@ const closeDeleteModal = () => {
   bookToDelete.value = null;
 };
 
-// Navegación
 const goToSearch = () => {
   navigateTo("/");
 };

@@ -9,12 +9,8 @@
     </div>
 
     <div class="history-items">
-      <button
-        v-for="(query, index) in booksStore.searchHistory"
-        :key="`${query}-${index}`"
-        @click="handleSearch(query)"
-        class="history-item"
-      >
+      <button v-for="(query, index) in booksStore.searchHistory" :key="`${query}-${index}`" @click="handleSearch(query)"
+        class="history-item">
         <span class="history-text">{{ query }}</span>
         <span class="history-arrow">→</span>
       </button>
@@ -27,6 +23,11 @@ const booksStore = useBooksStore();
 
 const emit = defineEmits(["search"]);
 
+/**
+ * @Everto Farias
+ * @description: Maneja click en elemento del historial emitiendo evento search con la query
+ * @return: void - Emite evento 'search' con query seleccionada al componente padre
+ */
 const handleSearch = (query: string) => {
   emit("search", query);
 };

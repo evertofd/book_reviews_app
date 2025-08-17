@@ -40,11 +40,19 @@ const emit = defineEmits<{
   search: [query: string];
 }>();
 
+/**
+ * @description: Computada bidireccional que implementa v-model custom para sincronización con parent
+ */
 const internalQuery = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
 });
 
+/**
+ * @Everto Farias
+ * @description: Maneja búsqueda validando query no vacío y emitiendo evento search con valor trim
+ * @return: void - Valida input y emite evento search al parent con query limpio
+ */
 const handleSearch = () => {
   if (!internalQuery.value.trim()) return;
   emit("search", internalQuery.value.trim());

@@ -1,5 +1,10 @@
 import { defineStore } from 'pinia'
 
+/**
+ * @Everto Farias
+ * @description: Interfaces TypeScript
+ * @return: Tipos definidos para LibraryBook, LibraryStats, LibraryResponse y LibraryState
+ */
 interface LibraryBook {
   _id: string
   userId: string
@@ -48,6 +53,11 @@ interface LibraryState {
   total: number
 }
 
+/**
+ * @Everto Farias
+ * @description: Estado inicial del store de biblioteca con libros, loading, errores y estadísticas
+ * @return: Estado para gestión de biblioteca personal
+ */
 export const useLibraryStore = defineStore('library', {
   state: (): LibraryState => ({
     books: [],
@@ -58,6 +68,11 @@ export const useLibraryStore = defineStore('library', {
   }),
 
   actions: {
+    /**
+     * @Everto Farias
+     * @description: Carga biblioteca del usuario con filtros opcionales desde API y convierte coverBase64 a coverUrl
+     * @return: Promise<void> - Obtiene libros filtrados y actualiza estado con books, stats y total
+     */
     async loadLibrary(filters?: { search?: string; sortBy?: string; excludeNoReview?: boolean }) {
       this.loading = true
       this.error = null
@@ -65,8 +80,9 @@ export const useLibraryStore = defineStore('library', {
       try {
         const config = useRuntimeConfig()
         const authStore = useAuthStore()
-
-        // Construir query parameters
+        /**
+         * @description: Construye query parameters dinámicamente según filtros proporcionados
+         */
         const params = new URLSearchParams()
         if (filters?.search) params.append('search', filters.search)
         if (filters?.sortBy) params.append('sortBy', filters.sortBy)
@@ -82,7 +98,9 @@ export const useLibraryStore = defineStore('library', {
         })
 
         if (response.success) {
-          // Convertir coverBase64 a coverUrl para compatibilidad con componentes
+          /**
+           * @description: Mapea libros convirtiendo coverBase64 a coverUrl para compatibilidad con componentes UI
+           */
           this.books = response.books.map(book => ({
             ...book,
             coverUrl: book.coverBase64 
@@ -101,7 +119,11 @@ export const useLibraryStore = defineStore('library', {
         this.loading = false
       }
     },
-
+    /**
+     * @Everto Farias
+     * @description: Actualiza review y rating de libro específico, actualiza estado local y recarga biblioteca
+     * @return: Promise<void> - Ejecuta PUT request, actualiza estado optimista y recarga datos
+     */
     async updateBook(bookId: string, updateData: { review: string; rating: number }) {
       try {
         const config = useRuntimeConfig()
@@ -128,7 +150,11 @@ export const useLibraryStore = defineStore('library', {
         throw new Error(error.data?.error || 'Error al actualizar el libro')
       }
     },
-
+    /**
+     * @Everto Farias
+     * @description: Elimina libro de biblioteca, actualiza estado local y recarga biblioteca completa
+     * @return: Promise<void> - Ejecuta DELETE request, filtra libro del estado y recarga datos
+     */
     async deleteBook(bookId: string) {
       try {
         const config = useRuntimeConfig()

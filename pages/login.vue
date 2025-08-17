@@ -18,39 +18,21 @@
           <h1 class="login-title">Iniciar Sesión</h1>
           <p class="login-subtitle">Accede a tu biblioteca personal</p>
         </div>
-        
+
         <form @submit.prevent="handleLogin" class="login-form">
           <div class="form-group">
             <label for="email" class="form-label">Email</label>
-            <input 
-              id="email"
-              v-model="form.email" 
-              type="email" 
-              class="form-input"
-              placeholder="tu@email.com"
-              required
-              :disabled="authStore.loading"
-            />
+            <input id="email" v-model="form.email" type="email" class="form-input" placeholder="tu@email.com" required
+              :disabled="authStore.loading" />
           </div>
 
           <div class="form-group">
             <label for="password" class="form-label">Contraseña</label>
-            <input 
-              id="password"
-              v-model="form.password" 
-              type="password" 
-              class="form-input"
-              placeholder="Tu contraseña"
-              required
-              :disabled="authStore.loading"
-            />
+            <input id="password" v-model="form.password" type="password" class="form-input" placeholder="Tu contraseña"
+              required :disabled="authStore.loading" />
           </div>
 
-          <button 
-            type="submit" 
-            class="login-button"
-            :disabled="authStore.loading || !form.email || !form.password"
-          >
+          <button type="submit" class="login-button" :disabled="authStore.loading || !form.email || !form.password">
             <span v-if="authStore.loading" class="button-loader"></span>
             {{ authStore.loading ? 'Iniciando sesión...' : 'Iniciar Sesión' }}
           </button>
@@ -63,7 +45,7 @@
 
         <div class="login-footer">
           <p class="register-text">
-            ¿No tienes cuenta? 
+            ¿No tienes cuenta?
             <NuxtLink to="/register" class="register-link">Regístrate aquí</NuxtLink>
           </p>
         </div>
@@ -73,6 +55,11 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * @Everto Farias
+ * @description: Configuración de página que aplica middleware guest para bloquear usuarios autenticados
+ * @return: PageMeta - Configuración que redirige usuarios logueados a home
+ */
 definePageMeta({
   middleware: 'guest'
 })
@@ -86,6 +73,11 @@ const form = reactive({
 
 const error = ref('')
 
+/**
+ * @Everto Farias
+ * @description: Maneja envío del formulario, autentica usuario y redirige a home en caso de éxito
+ * @return: Promise<void> - Ejecuta login y navegación o muestra error si falla
+ */
 const handleLogin = async () => {
   try {
     error.value = ''

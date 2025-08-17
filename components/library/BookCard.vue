@@ -67,18 +67,25 @@ defineEmits<{
   'edit': [book: Book]
   'delete': [book: Book]
 }>()
+const booksStore = useBooksStore()
+const defaultBookCover = booksStore.defaultBookCover
 
-// Imagen por defecto
-const defaultBookCover = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI4MCIgdmlld0JveD0iMCAwIDIwMCAyODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjgwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik04MCA5MEgxMjBWMTIwSDgwVjkwWiIgZmlsbD0iIzlDQTNBRiIvPgo8cGF0aCBkPSJNNzAgMTQwSDE3MFYxNTBINzBWMTQwWiIgZmlsbD0iIzlDQTNBRiIvPgo8cGF0aCBkPSJNODAgMTYwSDE0MFYxNzBIODBWMTYwWiIgZmlsbD0iIzlDQTNBRiIvPgo8L3N2Zz4K'
-
-// Review truncado
+/**
+ * @Everto Farias
+ * @description: Computed que trunca review a 150 caracteres para preview en card
+ * @return: ComputedRef<string> - Review truncado con '...' si excede límite o string vacío
+ */
 const truncatedReview = computed(() => {
   if (!props.book.review) return ''
   return props.book.review.length > 150 
     ? props.book.review.substring(0, 150) + '...' 
     : props.book.review
 })
-
+/**
+ * @Everto Farias
+ * @description: Maneja error de carga de imagen estableciendo fallback sin bucles infinitos
+ * @return: void - Reemplaza src con defaultBookCover si la imagen original falla
+ */
 const handleImageError = (event: any) => {
   if (event.target.src !== defaultBookCover) {
     event.target.src = defaultBookCover

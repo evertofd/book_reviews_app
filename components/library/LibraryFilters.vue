@@ -43,6 +43,11 @@ const emit = defineEmits<{
   'update:modelValue': [filters: Filters]
 }>()
 
+/**
+ * @Everto Farias
+ * @description: Computed que implementa v-model con getter/setter v-model="internalFilters"
+ * @return: ComputedRef<Filters> 
+ */
 const internalFilters = computed({
   get: () => props.modelValue,
   set: (value:any) => emit('update:modelValue', value)

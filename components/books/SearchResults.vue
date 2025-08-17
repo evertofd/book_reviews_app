@@ -2,7 +2,7 @@
   <div class="results-section">
     <!-- Loading durante búsqueda -->
     <UiLoadingSpinner v-if="booksStore.loading" message="Realizando búsqueda..." />
-    
+
     <!-- Error -->
     <div v-else-if="booksStore.error" class="error-message">
       <span class="error-icon">⚠️</span>
@@ -22,21 +22,13 @@
         <h3>Resultados de búsqueda</h3>
         <span class="results-count">{{ booksStore.total }} encontrados</span>
       </div>
-      
+
       <div class="books-grid">
-        <div 
-          v-for="book in booksStore.searchResults" 
-          :key="book.openLibraryId"
-          @click="handleBookSelect(book)"
-          class="book-card"
-        >
+        <div v-for="book in booksStore.searchResults" :key="book.openLibraryId" @click="handleBookSelect(book)"
+          class="book-card">
           <div class="book-cover-container">
-            <img 
-              :src="book.coverUrl || defaultBookCover" 
-              :alt="book.title"
-              class="book-cover"
-              @error="handleImageError"
-            />
+            <img :src="book.coverUrl || defaultBookCover" :alt="book.title" class="book-cover"
+              @error="handleImageError" />
           </div>
           <div class="book-info">
             <h4 class="book-title">{{ book.title }}</h4>
@@ -65,16 +57,22 @@ defineProps<Props>()
 const emit = defineEmits(['book-select'])
 
 const booksStore = useBooksStore()
+const defaultBookCover = booksStore.defaultBookCover
 
-// Imagen por defecto como data URL (base64) para que siempre funcione
-const defaultBookCover = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI4MCIgdmlld0JveD0iMCAwIDIwMCAyODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjgwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik04MCA5MEgxMjBWMTIwSDgwVjkwWiIgZmlsbD0iIzlDQTNBRiIvPgo8cGF0aCBkPSJNNzAgMTQwSDE3MFYxNTBINzBWMTQwWiIgZmlsbD0iIzlDQTNBRiIvPgo8cGF0aCBkPSJNODAgMTYwSDE0MFYxNzBIODBWMTYwWiIgZmlsbD0iIzlDQTNBRiIvPgo8L3N2Zz4K'
-
+/**
+ * @Everto Farias
+ * @description: Maneja click en libro emitiendo evento book-select al componente padre
+ * @return: void - Emite evento con objeto libro seleccionado para navegación
+ */
 const handleBookSelect = (book: any) => {
   emit('book-select', book)
 }
-
+/**
+ * @Everto Farias
+ * @description: Maneja error de carga de imagen reemplazando src con placeholder por defecto
+ * @return: void - Fallback automático para imágenes rotas sin bucles infinitos
+ */
 const handleImageError = (event: any) => {
-  // Si la imagen falla, usar la imagen por defecto
   if (event.target.src !== defaultBookCover) {
     event.target.src = defaultBookCover
   }

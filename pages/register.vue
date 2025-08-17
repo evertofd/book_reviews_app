@@ -91,6 +91,11 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * @Everto Farias
+ * @description: Configuración de página que aplica middleware guest para bloquear usuarios autenticados
+ * @return: PageMeta - Configuración que redirige usuarios logueados a home
+ */
 definePageMeta({
   middleware: 'guest'
 })
@@ -106,16 +111,17 @@ const form = reactive({
 const error = ref('')
 const success = ref('')
 
+/**
+ * @Everto Farias
+ * @description: Maneja registro de usuario, muestra mensaje de éxito y redirige a login tras delay
+ * @return: Promise<void> - Ejecuta registro, muestra feedback y navega a login después de 2s
+ */
 const handleRegister = async () => {
   try {
     error.value = ''
     success.value = ''
-    
     await authStore.register(form)
-    
     success.value = 'Cuenta creada exitosamente. Redirigiendo al login...'
-    
-    // Redirigir al login después de 2 segundos
     setTimeout(() => {
       navigateTo('/login')
     }, 2000)
