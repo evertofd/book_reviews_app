@@ -51,7 +51,7 @@
     line-height: 1.2;
     
     @media (max-width: $desktop) {
-      font-size: 2rem;
+      font-size: $spacing-xl;
     }
   }
   

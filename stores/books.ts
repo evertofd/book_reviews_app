@@ -84,7 +84,7 @@ export const useBooksStore = defineStore('books', {
       try {
         const config = useRuntimeConfig()
         const authStore = useAuthStore()
-        
+
         if (!authStore.token) return
 
         const response = await $fetch<SearchHistoryResponse>(`${config.public.apiBase}/books/last-search`, {
@@ -92,12 +92,12 @@ export const useBooksStore = defineStore('books', {
             'Authorization': `Bearer ${authStore.token}`
           }
         })
-        
+
         if (response.success) {
           this.searchHistory = response.searches.map(item => item.query)
           this.historyLoaded = true
         }
-        
+
       } catch (error) {
         console.error('Error cargando historial:', error)
       }
@@ -111,38 +111,38 @@ export const useBooksStore = defineStore('books', {
     async searchBooks(query: string, limit: number = 10) {
       this.loading = true
       this.error = null
-      
+
       try {
         const config = useRuntimeConfig()
         const authStore = useAuthStore()
-        
+
         const response = await $fetch<SearchResponse>(`${config.public.apiBase}/books/search`, {
-          query: { 
+          query: {
             q: query,
-            limit: limit 
+            limit: limit
           },
           headers: {
             'Authorization': `Bearer ${authStore.token}`
           }
         })
-        
+
         if (response.success) {
           this.searchResults = response.books
           this.total = response.total
+          this.error = null
+        } else {
+          this.searchResults = []
+          this.error = null
+        }
           /**
            * @description: Verifica si la query no existe en historial para evitar duplicados
            */
-          if (!this.searchHistory.includes(query)) {
-            this.searchHistory.unshift(query)
-            if (this.searchHistory.length > 5) {
-              this.searchHistory = this.searchHistory.slice(0, 5)
-            }
+        if (!this.searchHistory.includes(query)) {
+          this.searchHistory.unshift(query)
+          if (this.searchHistory.length > 5) {
+            this.searchHistory = this.searchHistory.slice(0, 5)
           }
-        } else {
-          this.error = 'No se pudieron obtener resultados'
-          this.searchResults = []
         }
-        
       } catch (error: any) {
         this.error = error.data?.error || 'Error al buscar libros'
         this.searchResults = []

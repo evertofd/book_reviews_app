@@ -5,8 +5,8 @@
 
     <!-- Error -->
     <div v-else-if="booksStore.error" class="error-message">
-      <span class="error-icon">⚠️</span>
-      {{ booksStore.error }}
+      <span class="error-icon">⚠️{{ booksStore.error }}</span>
+      
     </div>
 
     <!-- Sin resultados después de buscar -->

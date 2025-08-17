@@ -38,8 +38,8 @@
           </button>
 
           <div v-if="error" class="error-message">
-            <span class="error-icon">⚠️</span>
-            {{ error }}
+            <span class="error-icon">⚠️{{ error }}</span>
+            
           </div>
         </form>
 

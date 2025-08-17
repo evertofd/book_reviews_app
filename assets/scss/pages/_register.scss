@@ -42,7 +42,7 @@
 .register-subtitle {
   margin: 0;
   color: $text-muted;
-  font-size: 1rem;
+  font-size: $spacing-md;
   font-weight: 400;
 }
 
@@ -68,7 +68,7 @@
   padding: $spacing-md;
   border: 2px solid $gray-200;
   border-radius: $radius-lg;
-  font-size: 1rem;
+  font-size: $spacing-md;
   transition: all 0.3s ease;
   background: $bg-color;
   
@@ -96,7 +96,7 @@
   color: white;
   border: none;
   border-radius: $radius-lg;
-  font-size: 1rem;
+  font-size: $spacing-md;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -158,7 +158,7 @@
 }
 
 .error-icon, .success-icon {
-  font-size: 1rem;
+  font-size: $spacing-md;
 }
 
 .register-footer {
@@ -183,6 +183,29 @@
     color: color.scale($primary-color, $lightness: -15%);
     text-decoration: underline;
   }
+}
+
+.field-error {
+  color: $error-color;
+  font-size: $radius-lg;
+  margin-top: $spacing-xs;
+}
+
+.password-requirements {
+  margin-top: $spacing-sm;
+  
+  .requirement {
+    font-size: $radius-lg;
+    color: $text-muted;
+    
+    &.valid {
+      color: $success-color;
+    }
+  }
+}
+
+.form-input.error {
+  border-color: #ef4444;
 }
 
 @keyframes spin {
