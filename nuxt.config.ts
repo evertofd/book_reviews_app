@@ -5,9 +5,19 @@ export default defineNuxtConfig({
   typescript: {
     strict: false  
   },
+  app: {
+    head: {
+      link: [
+        {
+          rel: 'icon',
+          href: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"
+        }
+      ]
+    }
+  },
   runtimeConfig: {
     public: {
-      apiBase: 'http://localhost:3001/api'
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3001/api'
     }
   }
 })
