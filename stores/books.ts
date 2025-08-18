@@ -170,6 +170,19 @@ export const useBooksStore = defineStore('books', {
       this.selectedBook = null
       this.error = null
       this.total = 0
+    },
+    /**
+     * @Everto Farias
+     * @description: Limpia todo el estado del store de books al cambiar de usuario
+     * @return: void - Resetea searchResults, history y flags
+     */
+    clearAllData() {
+      this.searchResults = []
+      this.searchHistory = []
+      this.selectedBook = null
+      this.total = 0
+      this.historyLoaded = false
+      this.error = null
     }
   }
 })

@@ -182,6 +182,17 @@ export const useLibraryStore = defineStore('library', {
       this.error = null
       this.stats = null
       this.total = 0
+    },
+    /**
+     * @Everto Farias
+     * @description: Limpia todo el estado del store de library al cambiar de usuario
+     * @return: void - Resetea books, stats y flags
+     */
+    clearAllData() {
+      this.books = []
+      this.stats = null
+      this.total = 0
+      this.error = null
     }
   }
 })

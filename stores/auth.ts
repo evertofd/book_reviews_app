@@ -152,13 +152,18 @@ export const useAuthStore = defineStore('auth', {
      * @return: Promise<void> - Limpia todo el estado de autenticación y navega
      */
     async logout(): Promise<void> {
+      const booksStore = useBooksStore()
+      const libraryStore = useLibraryStore()
+      booksStore.clearAllData()
+      libraryStore.clearAllData()
+      
       this.user = null
       this.token = null
       this.isAuthenticated = false
       this.initialized = true
+
       const tokenCookie = useCookie('auth-token')
       tokenCookie.value = null
-      
       await navigateTo('/login')
     }
   }
