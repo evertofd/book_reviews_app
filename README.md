@@ -7,8 +7,9 @@ Aplicación web completa para la gestión de reseñas de libros personalizadas. 
 Para la creación de usuarios y contraseñas se debe tener en cuenta lo siguiente:
 - La contraseña debe incluir al menos una letra mayúscula, un carácter especial y un número.
 - Debe tener un largo mínimo de 6 caracteres.
+
 Ejemplo:
---Correo electrónico: user@example.com
+- Correo electrónico: user@example.com
 - Contraseña: MyPass123!
 
 ## Pre-requisitos ⚙️
