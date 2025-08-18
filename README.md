@@ -17,11 +17,11 @@ Para iniciar el proyecto localmente:
 1. Clona este repositorio.
 2. Ingresa al directorio del proyecto.
 3. Crear el archivo .env y configurar la variable de entorno:
-```env
+```
 NUXT_PUBLIC_API_BASE=http://localhost:3001/api
-``
+```
 4. Ejecuta los siguientes comandos:
-```bash
+```
 npm install
 npm run dev
 ```
@@ -32,7 +32,7 @@ npm run dev
 
 ## Despliegue en Producción 📦
 Para generar los archivos listos para producción, ejecuta:
-```bash
+```
 npm run build
 npm run preview
 ```
