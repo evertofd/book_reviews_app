@@ -2,7 +2,7 @@
   <div class="loading-container">
     <div class="spinner-wrapper">
       <div class="spinner"></div>
-      <div class="loading-text">{{ message }}</div>
+      <div class="loading-text">📚{{ message }}</div>
     </div>
   </div>
 </template>
