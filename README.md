@@ -1,75 +1,83 @@
-# Nuxt Minimal Starter
+# 📚 Book Reviews App
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Descripción 📋
+Aplicación web completa para la gestión de reseñas de libros personalizadas. Permite buscar libros en tiempo real, crear reseñas con calificaciones, gestionar biblioteca personal y autenticación de usuarios con una interfaz moderna y responsiva.
 
-## Setup
+## Pre-requisitos ⚙️
+Antes de comenzar, asegúrate de tener instalado lo siguiente:
+- [Node.js](https://nodejs.org/) versión 18 o superior
+- [Nuxt 3](https://nuxt.com/)
 
-Make sure to install dependencies:
+Además, debes configurar las siguientes variables de entorno:
+- `NUXT_PUBLIC_API_BASE`: URL base de la API que consume esta aplicación.
 
+## Comenzando 🚀
+Para iniciar el proyecto localmente:
+
+1. Clona este repositorio.
+2. Ingresa al directorio del proyecto.
+3. Crear el archivo .env y configurar la variable de entorno:
+```env
+NUXT_PUBLIC_API_BASE=http://localhost:3001/api
+``
+4. Ejecuta los siguientes comandos:
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
+> **Nota:** Antes de iniciar el frontend, asegúrate de clonar y levantar el servidor de la API backend. Puedes encontrarlo en la sección de dependencias del proyecto.
 
-## Production
+## Dependencias del Proyecto 🔗
+- [Backend - Book Reviews API](https://github.com/evertofd/book_reviews_api)
 
-Build the application for production:
-
+## Despliegue en Producción 📦
+Para generar los archivos listos para producción, ejecuta:
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
 npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Esto creará la carpeta `.output/`, que contiene los archivos optimizados listos para ser servidos en un entorno de producción.
+
+## Tecnologías Utilizadas 🛠️
+- [Nuxt 3](https://nuxt.com/) - Framework Vue.js full-stack
+- [Vue 3](https://vuejs.org/) - Framework JavaScript progresivo
+- [Pinia](https://pinia.vuejs.org/) - Store management para Vue
+- [TypeScript](https://www.typescriptlang.org/) - Tipado estático
+- [SCSS](https://sass-lang.com/) - Preprocesador CSS
+
+## Características Principales ✨
+- 🔐 **Sistema de autenticación completo** con registro y login
+- 🔍 **Búsqueda en tiempo real** de libros usando OpenLibrary API
+- 📚 **Biblioteca personal** con gestión de reseñas y calificaciones
+- ⭐ **Sistema de calificación** de 1 a 5 estrellas
+- 📝 **Reseñas de hasta 500 caracteres**
+- 🔄 **Historial de búsquedas** (últimas 5 búsquedas)
+- 📊 **Filtros avanzados** por título, autor, calificación
+- 🎨 **Interfaz moderna y responsiva** con SCSS personalizado
+- 🔒 **Protección de rutas** con middleware de autenticación
+- 📱 **Diseño mobile-first** y totalmente responsivo
+
+## Funcionalidades Destacadas 🎯
+- **SPA (Single Page Application)** con navegación fluida
+- **Estados de carga** y manejo de errores robusto
+- **Persistencia de sesión** con cookies seguras
+- **Modales interactivos** para edición y eliminación
+- **Validación de formularios** en tiempo real
+- **Gestión de estado global** con Pinia
+- **Componentes reutilizables** y modulares
+
+## Despliegue 🌐
+🔗 [Book Reviews App](https://book-reviews-frontend-d15k.onrender.com/)
+
+### Backend y Documentación:
+🔗 [API Backend](https://book-reviews-backend-3b7d.onrender.com/api)
+
+🔗 [Documentación API (Swagger)](https://book-reviews-backend-3b7d.onrender.com/api-docs)
+
+## Autores ✒️
+- **Everto Farías** ❤️
+
+---
+
+*Desarrollado con 💚 usando Nuxt 3 y Vue.js*
