@@ -3,6 +3,14 @@
 ## Descripción 📋
 Aplicación web completa para la gestión de reseñas de libros personalizadas. Permite buscar libros en tiempo real, crear reseñas con calificaciones, gestionar biblioteca personal y autenticación de usuarios con una interfaz moderna y responsiva.
 
+## Creación de usuario.
+Para la creación de usuarios y contraseñas se debe tener en cuenta lo siguiente:
+- La contraseña debe incluir al menos una letra mayúscula, un carácter especial y un número.
+- Debe tener un largo mínimo de 6 caracteres.
+Ejemplo:
+--Correo electrónico: user@example.com
+- Contraseña: MyPass123!
+
 ## Pre-requisitos ⚙️
 Antes de comenzar, asegúrate de tener instalado lo siguiente:
 - [Node.js](https://nodejs.org/) versión 18 o superior
